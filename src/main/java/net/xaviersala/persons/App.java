@@ -1,8 +1,12 @@
 package net.xaviersala.persons;
 
 
+import org.pac4j.core.config.Config;
+import org.pac4j.sparkjava.RequiresAuthenticationFilter;
+
 import net.xaviersala.persons.DAO.MemoryPersonDAO;
 import net.xaviersala.persons.DAO.PersonDAO;
+import net.xaviersala.persons.auth.PersonsConfigFactory;
 import spark.Spark;
 
 /**
@@ -20,6 +24,10 @@ public class App
 
     public static void main( String[] args )
     {
+      final Config config = new PersonsConfigFactory().build();
+
+      Spark.before("/clients", new RequiresAuthenticationFilter(config, "DirectBasicAuthClient"));
+
       Spark.get("/clients", (request, response) -> {
         response.status(200);
         response.type("application/json");
