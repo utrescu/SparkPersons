@@ -21,16 +21,14 @@ public class PersonsAuthenticator implements UsernamePasswordAuthenticator {
     String password = credentials.getPassword();
 
     if (CommonHelper.isBlank(username)) {
-      throwsException("Username no pot ser blanc");
+      throwsException("Empty username is not accepted");
     }
 
     if (CommonHelper.isBlank(password)) {
-      throwsException("La contrasenya no pot estar en blanc");
+      throwsException("Blank password not accepted");
     }
 
-    if (username.equals("xavier")) {
-
-    } else {
+    if (!username.equals("admin")) {
       throwsException("incorrect login or password");
     }
 

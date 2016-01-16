@@ -20,7 +20,7 @@ public class PersonsAuthorizer implements Authorizer {
 
     final HttpProfile httpProfile = (HttpProfile) profile;
     final String username = httpProfile.getUsername();
-    return username.equals("xavier");
+    return username.equals("admin");
   }
 
 }
