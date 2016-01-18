@@ -11,9 +11,6 @@ public class PersonsConfigFactory implements ConfigFactory {
   public Config build() {
 
     final DirectBasicAuthClient directBasicAuthClient = new DirectBasicAuthClient(new PersonsAuthenticator());
-    // Amb el segon paràmetre va bé però està deprecated
-//                                                                                   new UsernameProfileCreator());
-
 
     // ... SimpleTextUsernamePasswordAuthenticator: usuari i contrasenya han de ser iguals
     // final DirectBasicAuthClient directBasicAuthClient = new DirectBasicAuthClient(new SimpleTestUsernamePasswordAuthenticator());
@@ -23,6 +20,7 @@ public class PersonsConfigFactory implements ConfigFactory {
     final Config config = new Config(clients);
     config.addAuthorizer("custom", new PersonsAuthorizer());
     config.setHttpActionAdapter(new PersonsHttpActionAdapter());
+    config.addMatcher("onlyProtectPOST", context -> { return "POST".equalsIgnoreCase(context.getRequestMethod()); });
     return config;
   }
 

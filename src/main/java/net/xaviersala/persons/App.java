@@ -26,7 +26,8 @@ public class App
     {
       final Config config = new PersonsConfigFactory().build();
 
-      Spark.before("/clients", new RequiresAuthenticationFilter(config, "DirectBasicAuthClient"));
+
+      Spark.before("/clients", new RequiresAuthenticationFilter(config, "DirectBasicAuthClient", "", "onlyProtectPOST"));
 
       Spark.get("/clients", (request, response) -> {
         response.status(200);
